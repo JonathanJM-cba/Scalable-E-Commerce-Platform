@@ -1,8 +1,9 @@
-import express, { Express } from "express";
+import express, { Express, Response } from "express";
 import cors from "cors";
 import helmet from "helmet";
 import dotenv from "dotenv";
 import morgan from "morgan";
+import { createProxyMiddleware } from "http-proxy-middleware";
 
 dotenv.config();
 
@@ -15,9 +16,20 @@ app.use(cors());
 app.use(helmet());
 app.use(morgan("dev"));
 
-/**
- * Luego se definir cada uno de los microservicios
- */
+app.get("/", (_, res: Response) => {
+  res.send("Bienvenido a la API de Plataforma E-commerce");
+});
+
+//User microservice
+const userMicroservice = createProxyMiddleware({
+  target: "http://localhost:3001",
+  changeOrigin: true,
+  pathRewrite: {
+    "^/api/auth": "", // 🔥 esto es clave
+  },
+});
+
+app.use("/api/auth", userMicroservice);
 
 app.listen(port, () => {
   console.log(`API Gateway is running in http://localhost:${port}`);

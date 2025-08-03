@@ -17,6 +17,7 @@ FROM node:20-alpine
 WORKDIR /app
 
 COPY package*.json ./
+ENV NODE_ENV=production
 RUN npm install --only=production
 
 COPY --from=builder /app/dist ./dist

@@ -20,9 +20,14 @@ app.get("/", (_, res: Response) => {
   res.send("Bienvenido a la API de Plataforma E-commerce");
 });
 
+const userServiceTarget =
+  process.env.NODE_ENV === "development"
+    ? "http://localhost:3001"
+    : process.env.USER_SERVICE_URL || "http://user-service:3001";
+
 //User microservice
 const userMicroservice = createProxyMiddleware({
-  target: "http://localhost:3001",
+  target: userServiceTarget,
   changeOrigin: true,
   pathRewrite: {
     "^/api/auth": "", // 🔥 esto es clave

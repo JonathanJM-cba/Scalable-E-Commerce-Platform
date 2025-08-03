@@ -1,10 +1,10 @@
 # ----------- FASE 1: BUILDER (compilación de TypeScript) -----------
-FROM node:20 as builder
+FROM node:20 AS builder
 
 WORKDIR /app
 
 # Copiamos solo lo necesario para instalar dependencias
-COPY ./package*.json ./
+COPY package*.json ./
 RUN npm install
 
 # Copiamos el resto del código
@@ -21,12 +21,12 @@ FROM node:20-alpine
 #Carpeta raíz
 WORKDIR /app
 
-COPY ./package*.json ./
+COPY package*.json ./
 RUN npm install --only=production
 
-COPY --from=builder /app/dist /dist
-COPY env ./
+COPY --from=builder /app/dist ./dist
+COPY .env ./
 
 EXPOSE 3001
 
-CMD [ "npm", "start" ]
+CMD ["node", "dist/index.js"]

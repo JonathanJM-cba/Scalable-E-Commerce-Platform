@@ -12,7 +12,7 @@ export class User {
   id: number;
 
   @Column({
-    type: "string",
+    type: "varchar",
     unique: true,
     nullable: false,
     length: 50,
@@ -20,7 +20,7 @@ export class User {
   username: string;
 
   @Column({
-    type: "string",
+    type: "varchar",
     unique: true,
     nullable: false,
     length: 50,

@@ -1,3 +1,4 @@
+import "reflect-metadata";
 import express, { Express, Response } from "express";
 import helmet from "helmet";
 import morgan from "morgan";
@@ -8,6 +9,8 @@ const app: Express = express();
 
 app.use(helmet());
 app.use(morgan("dev"));
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 // Middleware para ver qué rutas llegan
 app.use((req, res, next) => {

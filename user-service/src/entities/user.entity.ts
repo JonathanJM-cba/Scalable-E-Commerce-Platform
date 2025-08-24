@@ -27,6 +27,13 @@ export class User {
   })
   email: string;
 
+  @Column({
+    type: "varchar",
+    nullable: false,
+    length: 100,
+  })
+  password: string;
+
   @CreateDateColumn({
     type: "timestamptz",
     nullable: false,

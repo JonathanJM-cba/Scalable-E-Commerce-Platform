@@ -16,7 +16,7 @@ export const AppDataSource = new DataSource({
   username: DB_USER,
   password: DB_PASSWORD,
   port: parseInt(DB_PORT),
-  host: DB_HOST,
+  host: DB_HOST || "localhost",
   entities: [User],
   synchronize: true,
   logging: false,
